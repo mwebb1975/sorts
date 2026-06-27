@@ -1,10 +1,14 @@
+use std::mem::swap;
+
 use rand::{Rng, RngExt};
 
 fn main() {
-    let mut numbers: Vec<i32> =generate_random_numbers(-10000, 10000, 100);
+    let mut numbers: Vec<i32> = generate_random_numbers(-10000, 10000, 100);
+    let mut numbers2 = numbers.clone();
 
     println!("{:?}", numbers);
     bubble_sort(&mut numbers);
+    selection_sort(&mut numbers2);
 }
 
 fn bubble_sort(numbers: &mut Vec<i32>) {
@@ -13,6 +17,7 @@ fn bubble_sort(numbers: &mut Vec<i32>) {
     let mut comp_cnt = 0;
     let mut swap_cnt = 0;
 
+    println!("##### Running Bubble Sort #####");
     println!("List size: {}", numbers.len());
     println!("Ending index: {}", end_index);
 
@@ -27,6 +32,33 @@ fn bubble_sort(numbers: &mut Vec<i32>) {
                 swap_cnt += 1;
             }
         }
+    }
+    println!("Compares: {}", comp_cnt);
+    println!("Swaps: {}", swap_cnt);
+    println!("{:?}", numbers);
+}
+
+fn selection_sort(numbers: &mut Vec<i32>) {
+    let mut comp_cnt = 0;
+    let mut swap_cnt = 0;
+    let end_index = numbers.len() - 1;
+
+    println!("##### Running Sekection Sort #####");
+    println!("List size: {}", numbers.len());
+    println!("Ending index: {}", end_index);
+
+    for i in 0..end_index {
+        let mut index = i;
+        for i2 in (i+1)..numbers.len() {
+            if numbers[i2] < numbers[index] {
+                index = i2;
+            }
+            comp_cnt += 1;
+        }
+        if index > i {
+            numbers.swap(i, index);
+            swap_cnt += 1;
+            }
     }
     println!("Compares: {}", comp_cnt);
     println!("Swaps: {}", swap_cnt);
